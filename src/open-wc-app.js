@@ -24,7 +24,6 @@ class OpenWcApp extends LitElement {
 
   addToDo(todo) {
     if (todo === null) return;
-    console.log('gi');
     this.hasHadToDo = true;
     this.todos = addToDo(this.todos, todo);
   }
@@ -77,8 +76,9 @@ class OpenWcApp extends LitElement {
 
   get renderWorkLevelMessage() {
     if (this.hasHadToDo) {
+      const message = workLevelMessage(this.todos);
       return html`
-        <h2>${workLevelMessage(this.todos)}</h2>
+        <h2 aria-label="${message}">${message}</h2>
       `;
     }
     return html``;
@@ -87,9 +87,9 @@ class OpenWcApp extends LitElement {
   render() {
     return html`
       ${openWCHeader(this.title)}
-      <section>
+      <section role="list">
         ${this.renderWorkLevelMessage} ${renderTodos(this.todos)}
-        <to-do-write></to-do-write>
+        <to-do-write role="listitem"></to-do-write>
       </section>
       ${openWCFooter}
     `;

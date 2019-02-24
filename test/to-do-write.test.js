@@ -1,8 +1,6 @@
-import {
-  html,
-  fixture,
-  expect,
-} from '@open-wc/testing';
+import { html, fixture, expect } from '@open-wc/testing';
+import 'axe-core/axe.min.js';
+import { axeReport } from 'pwa-helpers/axe-report.js';
 
 import '../src/to-do-write';
 import { toDoEventNames } from '../src/to-do-events';
@@ -12,7 +10,11 @@ describe('<to-do-write>', () => {
   let el;
   let newToDos;
   before(async () => {
-    el = await fixture(html`<to-do-write></to-do-write>`);
+    el = await fixture(
+      html`
+        <to-do-write></to-do-write>
+      `,
+    );
     el.addEventListener(toDoEventNames.NEW, () => {
       newToDos += 1;
     });
@@ -20,6 +22,7 @@ describe('<to-do-write>', () => {
   beforeEach(() => {
     newToDos = 0;
   });
+  it('it has a11y', () => axeReport(el));
   it('announces a new to do', async () => {
     expect(newToDos).to.equal(0);
     el.todo = newToDo;

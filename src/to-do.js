@@ -9,7 +9,7 @@ class ToDo extends LitElement {
       todoId: {
         type: Number,
         attribute: 'todo-id',
-      }
+      },
     };
   }
 
@@ -43,10 +43,7 @@ class ToDo extends LitElement {
       <div>
         <slot></slot>
       </div>
-      <button
-        @click="${this.completeToDo}"
-        title="Complete To Do"
-      >
+      <button @click="${this.completeToDo}" arai-labelledby="Complete To Do">
         ${iconMinus}
       </button>
     `;

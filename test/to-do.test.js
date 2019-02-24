@@ -1,4 +1,6 @@
-import { fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect } from '@open-wc/testing';
+import 'axe-core/axe.min.js';
+import { axeReport } from 'pwa-helpers/axe-report.js';
 
 import '../src/to-do';
 import { toDoEventNames } from '../src/to-do-events';
@@ -9,6 +11,14 @@ describe('<to-do>', () => {
     id: 2,
     todo: 'New To Do',
   };
+  it('it has a11y', async () => {
+    const el = await fixture(
+      html`
+        <section role="list">${renderTodo(newToDo)}</section>
+      `,
+    );
+    return axeReport(el);
+  });
   it('is a to do', async () => {
     const el = await fixture(renderTodo(newToDo));
     expect(el.textContent).to.equal(newToDo.todo);

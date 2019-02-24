@@ -1,4 +1,6 @@
 import { html, fixture, expect, nextFrame } from '@open-wc/testing';
+import 'axe-core/axe.min.js';
+import { axeReport } from 'pwa-helpers/axe-report.js';
 
 import '../src/open-wc-app';
 import { eventCompleteToDo, eventNewToDo } from '../src/to-do-events';
@@ -9,6 +11,14 @@ const toDoElement = (el, index) => el.shadowRoot.querySelectorAll('to-do')[index
 const firstToDo = el => el.todos[0];
 
 describe('<open-wc-app>', () => {
+  it('it has a11y', async () => {
+    const el = await fixture(
+      html`
+        <open-wc-app></open-wc-app>
+      `,
+    );
+    return axeReport(el);
+  });
   it('has a title', async () => {
     const el = await fixture(
       html`
