@@ -1,26 +1,16 @@
 import { LitElement, html, css } from 'lit-element';
 import './to-do';
-import {
-  newToDos,
-  addToDo,
-  completeToDo,
-  workLevelMessage
-} from './to-do-manager'
-import {
-  openWCHeader,
-  openWCFooter,
-  openWCStyles
-} from './open-wc'
 import './to-do-write';
-import {
-  toDoEventNames
-} from './to-do-events'
+import { renderTodos } from './to-do-ui';
+import { toDoEventNames } from './to-do-events';
+import { newToDos, addToDo, completeToDo, workLevelMessage } from './to-do-manager';
+import { openWCHeader, openWCFooter, openWCStyles } from './open-wc';
 
 class OpenWcApp extends LitElement {
   static get properties() {
     return {
       title: { type: String },
-      todos: { type: Array }
+      todos: { type: Array },
     };
   }
 
@@ -28,16 +18,19 @@ class OpenWcApp extends LitElement {
     super();
     this.title = 'open-wc';
     this.todos = newToDos();
-    this.addEventListener(toDoEventNames.NEW, (e) => this.addToDo(e.detail));
-    this.addEventListener(toDoEventNames.COMPLETE, (e) => this.completeToDo(e.detail));
+    this.addEventListener(toDoEventNames.NEW, e => this.addToDo(e.detail));
+    this.addEventListener(toDoEventNames.COMPLETE, e => this.completeToDo(e.detail));
   }
 
   addToDo(todo) {
+    if (todo === null) return;
+    console.log('gi');
     this.hasHadToDo = true;
     this.todos = addToDo(this.todos, todo);
   }
 
   completeToDo(completedId) {
+    if (completedId === null) return;
     this.todos = completeToDo(this.todos, completedId);
   }
 
@@ -92,15 +85,10 @@ class OpenWcApp extends LitElement {
   }
 
   render() {
-    const todos = this.todos.map(todo => html`
-      <to-do todo-id="${todo.id}">${todo.todo}</to-do>
-    `);
-    
     return html`
       ${openWCHeader(this.title)}
       <section>
-        ${this.renderWorkLevelMessage}
-        ${todos}
+        ${this.renderWorkLevelMessage} ${renderTodos(this.todos)}
         <to-do-write></to-do-write>
       </section>
       ${openWCFooter}
