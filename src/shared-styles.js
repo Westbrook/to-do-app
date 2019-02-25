@@ -2,25 +2,23 @@ import { css } from 'lit-element';
 
 export const formElementFocus = css`
   outline: none;
-  background-image:
-    linear-gradient(
-      to top,
-      #0077FF 0px,
-      #0077FF 2px,
-      transparent 2px,
-      transparent 100%
-    );
+  background-image: linear-gradient(
+    to top,
+    #0077ff 0px,
+    #0077ff 2px,
+    transparent 2px,
+    transparent 100%
+  );
 `;
 
 export const formElementHover = css`
-  background-image:
-    linear-gradient(
-      to top,
-      currentColor 0px,
-      currentColor 2px,
-      transparent 2px,
-      transparent 100%
-    );
+  background-image: linear-gradient(
+    to top,
+    currentColor 0px,
+    currentColor 2px,
+    transparent 2px,
+    transparent 100%
+  );
 `;
 
 export const toDoButton = css`
@@ -38,7 +36,7 @@ export const toDoButton = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: content-box;
+    box-sizing: border-box;
   }
   button:hover {
     ${formElementHover}
