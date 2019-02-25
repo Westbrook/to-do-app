@@ -1,23 +1,19 @@
 import { LitElement, html, css } from 'lit-element';
 import './growing-textarea';
 import { eventNewToDo } from './to-do-events';
-import {
-  formElementFocus,
-  formElementHover,
-  toDoButton
-} from './shared-styles';
+import { formElementFocus, formElementHover, toDoButton } from './shared-styles';
 import { iconPlus } from './icons';
 
-const shouldPreventKey = (e) => {
+const shouldPreventKey = e => {
   if (!e.shiftKey && e.key === 'Enter') {
     e.preventDefault();
   }
-}
+};
 
 class ToDoWrite extends LitElement {
   static get properties() {
     return {
-      todo: { type: String }
+      todo: { type: String },
     };
   }
 
@@ -62,8 +58,8 @@ class ToDoWrite extends LitElement {
   render() {
     return html`
       <growing-textarea>
-        <label for="todo">Write the next thing you need to get done.</label>
         <textarea
+          aria-label="Write the next thing you need to get done."
           id="todo"
           name="todo"
           placeholder="What needs to get done?"
@@ -73,10 +69,7 @@ class ToDoWrite extends LitElement {
           @keydown="${shouldPreventKey}"
         ></textarea>
       </growing-textarea>
-      <button
-        @click="${this.newToDo}"
-        title="Create New To Do"
-      >
+      <button @click="${this.newToDo}" title="Create New To Do">
         ${iconPlus}
       </button>
     `;

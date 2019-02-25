@@ -6,20 +6,19 @@ import { iconMinus } from './icons';
 class ToDo extends LitElement {
   static get properties() {
     return {
-      todoId: {
-        type: Number,
-        attribute: 'todo-id',
+      todo: {
+        type: Object,
       },
     };
   }
 
   constructor() {
     super();
-    this.todo = '';
+    this.todo = {};
   }
 
   completeToDo() {
-    this.dispatchEvent(eventCompleteToDo(this.todoId));
+    this.dispatchEvent(eventCompleteToDo(this.todo.id));
   }
 
   static get styles() {
@@ -41,9 +40,9 @@ class ToDo extends LitElement {
   render() {
     return html`
       <div>
-        <slot></slot>
+        ${this.todo.todo}
       </div>
-      <button @click="${this.completeToDo}" arai-labelledby="Complete To Do">
+      <button @click="${this.completeToDo}" aria-label="Complete ${this.todo.todo} To Do">
         ${iconMinus}
       </button>
     `;
