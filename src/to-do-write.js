@@ -57,13 +57,12 @@ class ToDoWrite extends LitElement {
 
   render() {
     return html`
-      <growing-textarea>
+      <growing-textarea value="${this.todo}">
         <textarea
           aria-label="Write the next thing you need to get done."
           id="todo"
           name="todo"
           placeholder="What needs to get done?"
-          .value="${this.todo}"
           @input="${this.setToDo}"
           @keyup="${this.shouldCreateToDo}"
           @keydown="${shouldPreventKey}"

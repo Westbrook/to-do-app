@@ -1,10 +1,10 @@
 import { LitElement, html } from 'lit-element';
-import { styles } from './growing-textarea-styles'
+import { styles } from './growing-textarea-styles';
 
 class GrowingTextarea extends LitElement {
   static get properties() {
     return {
-      value: { type: String }
+      value: { type: String },
     };
   }
 
@@ -20,7 +20,7 @@ class GrowingTextarea extends LitElement {
 
   listenOnSlottedTextarea(e) {
     if (this.textarea) {
-      this.textarea.removeEventListener('input', this.setValue)
+      this.textarea.removeEventListener('input', this.setValue);
     }
     const nodes = e.target.assignedNodes();
     const [textarea] = nodes.filter(node => node.tagName === 'TEXTAREA');
@@ -30,9 +30,7 @@ class GrowingTextarea extends LitElement {
   }
 
   static get styles() {
-    return [
-      styles,
-    ];
+    return [styles];
   }
 
   render() {
@@ -40,6 +38,12 @@ class GrowingTextarea extends LitElement {
       <slot @slotchange=${this.listenOnSlottedTextarea}></slot>
       <span aria-hidden="true">${this.value}</span>
     `;
+  }
+
+  updated(changed) {
+    if (changed.has('value') && this.textarea) {
+      this.textarea.value = this.value;
+    }
   }
 }
 

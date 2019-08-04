@@ -12,7 +12,7 @@ export const styles = css`
     min-height: var(--to-do-button-size);
     padding: 4px calc(0.25 * var(--to-do-button-size));
     font-size: calc(0.5 * var(--to-do-button-size));
-    line-height: calc(var(--to-do-button-size) - 8px);
+    line-height: calc(var(--to-do-button-size) - 10px);
     box-sizing: border-box;
   }
   span {
